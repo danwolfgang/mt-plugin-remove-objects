@@ -1,0 +1,20 @@
+key:         removeobjects
+id:          removeobjects
+name:        'Remove Objects'
+description: 'Allows System Administrators to easily remove any objects.'
+author_name: 'Dan Wolfgang'
+author_link: http://endevver.com
+plugin_link: https://github.com/danwolfgang/mt-plugin-remove-objects
+version:     1.0.0
+
+applications:
+    cms:
+        menus:
+            tools:remove_objects:
+                label: 'Remove Objects'
+                mode: remove_objects
+                order: 10000
+                view: system
+                permission: administer
+        methods:
+            remove_objects: RemoveObjects::Plugin::remove_objects_interface

@@ -1,0 +1,71 @@
+<mt:SetVarBlock name="page_title">Remove Objects</mt:SetVarBlock>
+
+<mt:Var name="position_actions_bottom" value="1">
+<mt:SetVarTemplate name="action_buttons">
+    <button
+        type="submit"
+        accesskey="s"
+        class="primary-button primary action button"
+        title="<__trans phrase="Delete (s)">">
+        <__trans phrase="Delete">
+    </button>
+</mt:SetVarTemplate>
+
+<mt:SetVarBlock name="system_msg">
+    <div id="msg-block">
+        <mtapp:statusmsg
+            class="info">
+            <__trans phrase="Deleting objects is permanent. Proceed with caution!">
+        </mtapp:statusmsg>
+        <mt:if name="objects_removed">
+            <mtapp:statusmsg
+                class="success">
+                <__trans phrase="The selected objects have been removed:">
+                <mt:Var name="objects_removed">.
+            </mtapp:statusmsg>
+        </mt:if>
+    </div>
+</mt:SetVarBlock>
+
+<mt:SetVarBlock name="form_header">
+    <form method="post" action="<mt:Var name="script_url">" target="_top">
+        <input type="hidden" name="__mode" value="remove_objects" />
+</mt:SetVarBlock>
+
+<mt:Include name="include/header.tmpl">
+
+<p>
+    Specify the object type and ID to be deleted. This is a <em>permanent</em>
+    operation and can <em>not</em> be undone. Make your selections carefully.
+</p>
+
+<mtapp:Setting
+    label="Object Type"
+    id="object-type"
+    hint="Select the object type to be deleted."
+    show_hint="1"
+    required="1">
+    <select name="object_type" id="object_type">
+        <option value="0">None</option>
+    <mt:Loop name="object_types">
+        <option value="<mt:Var name="type">"><mt:Var name="label"> (<mt:Var name="type">)</option>
+    </mt:Loop>
+    </select>
+</mtapp:Setting>
+
+<mtapp:Setting
+    label="Object ID(s)"
+    id="object-id"
+    hint="Specify the ID of an object to remove, or specify a comma-separated list to delete multiple objects."
+    show_hint="1"
+    required="1">
+    <input name="object_id" id="object_id" class="text full-width" value="" />
+</mtapp:Setting>
+
+<mt:Include name="include/actions_bar.tmpl" bar_position="bottom" hide_pager="1">
+
+<mt:SetVarBlock name="form_footer">
+    </form>
+</mt:SetVarBlock>
+
+<mt:Include name="include/footer.tmpl">
